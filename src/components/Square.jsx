@@ -1,13 +1,9 @@
 import * as React from 'react';
 
 
-export const Square = ({black, movable, children}) => {
+export const Square = ({black, children}) => {
   let cursor  = "inherit"
   let fill = black ? 'black' : 'white'
-  if (movable) {
-    fill = black ? 'orange' : 'red'
-    cursor = "pointer"
-  }
   const stroke = black ? 'white' : 'black'
 
   return (

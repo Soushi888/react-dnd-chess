@@ -5,9 +5,6 @@ import {Knight} from "./Knight";
 import {moveKnight, canMoveKnight} from "../Game"
 import BoardSquare from "./BoardSquare";
 
-export const ItemTypes = {
-  KNIGHT: 'knight'
-}
 
 function handleSquareClick(toX, toY) {
   if (canMoveKnight(toX, toY)) {
@@ -24,13 +21,12 @@ function renderPiece(x, y, [knightX, knightY]) {
 function renderSquare(i, knightPosition) {
   const x = i % 8
   const y = Math.floor(i / 8)
-  const isMovable = canMoveKnight(x, y)
 
 
   return (
     <div key={i} style={{width: '12.5%', height: '12.5%'}}
          onClick={() => handleSquareClick(x, y)}>
-      <BoardSquare x={x} y={y} movable={isMovable}>
+      <BoardSquare x={x} y={y}>
         {renderPiece(x, y, knightPosition)}
       </BoardSquare>
     </div>
