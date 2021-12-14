@@ -7,6 +7,8 @@ import {Board} from "./components/Board";
 const root = document.getElementById('root')
 
 observe((knightPosition) => ReactDOM.render(
-  <Board knightPosition={knightPosition}/>, root))
+  <main>
+    <Board knightPosition={knightPosition}/>
+  </main>, root))
 document.getElementById('root')
 ;
