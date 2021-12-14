@@ -60,7 +60,7 @@ main {
     margin: 30px auto auto;
     width: 800px;
     height: 800px;
-    border: solid 2px black;
-    -webkit-box-shadow: 5px 5px 15px 5px #000000;
-    box-shadow: 5px 5px 15px 5px #000000;
+    border: solid 2px #2a2a2a;
+    -webkit-box-shadow: 5px 5px 15px 5px #2a2a2a;
+    box-shadow: 5px 5px 15px 5px #2a2a2a;
 }
