@@ -1,4 +1,4 @@
-let knightPosition = [0, 0]
+let knightPosition = [3, 4]
 let observer = null
 
 export function canMoveKnight(toX, toY) {
