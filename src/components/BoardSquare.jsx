@@ -8,19 +8,19 @@ function BoardSquare({x, y, children}) {
   const black = (x + y) % 2 === 1
   let background
 
-  const [{isOver}, drop] = useDrop(() => ({
+  const [{isOver, canDrop}, drop] = useDrop(() => ({
     accept: ItemTypes.KNIGHT,
-    drop: () => {
-      if (canMoveKnight(x, y)) moveKnight(x, y)
-    },
+    drop: () => moveKnight(x, y),
+    canDrop: () => canMoveKnight(x, y),
     collect: monitor => ({
       isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop()
     }),
   }), [x, y])
 
-  if (canMoveKnight(x, y) && black) {
+  if (isOver && black) {
     background = "orange"
-  } else if (canMoveKnight(x, y) && !black) {
+  } else if (isOver && !black) {
     background = "red"
   }
 
@@ -31,10 +31,9 @@ function BoardSquare({x, y, children}) {
         position: 'relative',
         width: '100%',
         height: '100%',
-
       }}>
       <Square black={black}>{children}</Square>
-      {isOver && (
+      {canDrop && (
         <div
           style={{
             position: 'absolute',
