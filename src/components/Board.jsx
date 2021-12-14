@@ -1,7 +1,13 @@
 import * as React from 'react';
-import {Square} from "./Square";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 import {Knight} from "./Knight";
 import {moveKnight, canMoveKnight} from "../Game"
+import BoardSquare from "./BoardSquare";
+
+export const ItemTypes = {
+  KNIGHT: 'knight'
+}
 
 function handleSquareClick(toX, toY) {
   if (canMoveKnight(toX, toY)) {
@@ -9,19 +15,24 @@ function handleSquareClick(toX, toY) {
   }
 }
 
-function renderSquare(i, [knightX, knightY]) {
+function renderPiece(x, y, [knightX, knightY]) {
+  if (x === knightX && y === knightY) {
+    return <Knight/>
+  }
+}
+
+function renderSquare(i, knightPosition) {
   const x = i % 8
   const y = Math.floor(i / 8)
-  const isKnightHere = x === knightX && y === knightY
-  const black = (x + y) % 2 === 1
-  const piece = isKnightHere ? <Knight/> : null
   const isMovable = canMoveKnight(x, y)
 
 
   return (
     <div key={i} style={{width: '12.5%', height: '12.5%'}}
          onClick={() => handleSquareClick(x, y)}>
-      <Square black={black} movable={isMovable}>{piece}</Square>
+      <BoardSquare x={x} y={y} movable={isMovable}>
+        {renderPiece(x, y, knightPosition)}
+      </BoardSquare>
     </div>
   )
 }
@@ -34,15 +45,16 @@ export function Board({knightPosition}) {
   }
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        flexWrap: 'wrap'
-      }}
-    >
-      {squares}
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div
+        style={{
+          width: '100%',
+          height: '100vh',
+          display: 'flex',
+          flexWrap: 'wrap'
+        }}>
+        {squares}
+      </div>
+    </DndProvider>
   )
 }
